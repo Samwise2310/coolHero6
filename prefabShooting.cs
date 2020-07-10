@@ -1,34 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class prefabShooting : MonoBehaviour
 {
 
     // Setting up Variables
-        // This will be the bullet object. (Not 100% sure if this is right 
+    // This will be the bullet object. (Not 100% sure if this is right 
     public GameObject theBullet;
-        // This is the speed of the "bullet"
+    // This is the speed of the "bullet"
     public float Speed = 20f;
-        // This is the positino of the Character that is shooting
-    private GameObject characterPos;
-        // This is the position of the target
+    // This is the positino of the Character that is shooting
+    public GameObject characterPos;
+    // This is the position of the target
     public Transform targetPos; // NOT USED YET
-        // I do not know if I will need to get the Rigidbody
-    Rigidbody rb;
-        // This Vector 3 variable will hold the mouse position
+                                // I do not know if I will need to get the Rigidbody
+    public Rigidbody rb;
+    // This Vector 3 variable will hold the mouse position
     private Vector3 worldPosition;
-        // Mouse position on mouse click
+    // Mouse position on mouse click
     private Vector3 mouseClickPos;
-        // Creating variable "toTransform"
+    // Creating variable "toTransform"
     private Vector3 toTransform;
 
 
 
- 
-      
 
-  
+
+    public float damage = 10f;
+
+    public float range = 100f;
+
+
+
 
 
 
@@ -43,7 +48,8 @@ public class prefabShooting : MonoBehaviour
             characterPos = GameObject.Find("player");
 
 
-        
+        rb = GetComponent<Rigidbody>();
+
 
 
     } // End of Void Start
@@ -52,12 +58,12 @@ public class prefabShooting : MonoBehaviour
 
 
 
-// This update is called every frame
-// I think I will want a FixedUpdate() here but I am not sure yet.
-void Update()
+    // This update is called every frame
+    // I think I will want a FixedUpdate() here but I am not sure yet.
+    void Update()
     {
 
-     
+
 
 
         /* 
@@ -68,7 +74,7 @@ void Update()
 
         toTransform = characterPos.transform.position;
 
-        
+
 
         /*
          * This section of code will handle the Mouse Position
@@ -135,11 +141,14 @@ void Update()
         if (Input.GetMouseButtonDown(0))
         {
 
-            GameObject clone = Instantiate(theBullet, toTransform, Quaternion.LookRotation(toTarget));
+            //    GameObject clone = Instantiate(theBullet, toTransform, Quaternion.LookRotation(toTarget));
 
-            clone.transform.position = Vector3.MoveTowards(clone.transform.position, mouseClickPos, Time.deltaTime * Speed);
+            //    clone.transform.position = Vector3.MoveTowards(clone.transform.position, mouseClickPos, Time.deltaTime * Speed);
 
-            Destroy(clone.gameObject, 3f);
+            //    Destroy(clone.gameObject, 3f);
+
+
+            Shoot();
 
         }
 
@@ -156,7 +165,7 @@ void Update()
          */
 
 
-        
+
 
 
 
@@ -191,11 +200,37 @@ void Update()
 
 
 
+        // Puase game
+        if (Input.GetButtonDown("Pause"))
+        {
+            SceneManager.LoadScene("LibraryWhitebox");
+        }
+
+
+
 
     }   // End of Update() function
 
 
-   
+
+    public void Shoot()
+    {
+
+        RaycastHit hit;
+        if (Physics.Raycast(characterPos.transform.position, mouseClickPos, out hit, range)) ;
+        {
+            Debug.Log(hit.transform.name);
+
+            Target target = hit.transform.GetComponent<Target>();
+            if (target != null)
+            {
+                target.TakeDamage(damage);
+            }
+
+        }
+
+
+    }
 
 
 
