@@ -59,11 +59,11 @@ public class cannonBallFire : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Colliding on object: " + collision.gameObject.tag);
+       // Debug.Log("Colliding on object: " + collision.gameObject.tag);
 
         if (collision.gameObject.tag == "Stage")
         {
-            print("Collided with the Stage - This is my print");
+           // print("Collided with the Stage - This is my print");
             Destroy(clone.gameObject, 0f);
             // Destroy(collision.gameObject);
         }
