@@ -33,11 +33,12 @@ public class cannonBallFire : MonoBehaviour
         // This Rigidbody will hold the rigidbody of the each clone
     public Rigidbody tempRigidbody;
 
-        
+    public GameObject clone;
 
-    
 
-    
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,14 +56,31 @@ public class cannonBallFire : MonoBehaviour
 
     }
 
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Colliding on object: " + collision.gameObject.tag);
+
+        if (collision.gameObject.tag == "Stage")
+        {
+            print("Collided with the Stage - This is my print");
+            Destroy(clone.gameObject, 0f);
+            // Destroy(collision.gameObject);
+        }
+    }
+
+
+
     // Fire is called every (random)
     void fire()
     {
 
+        clone = Instantiate(cannonBall);  
 
-        GameObject clone = Instantiate(cannonBall);
 
-        Destroy(clone.gameObject, 5f);
+        Destroy(clone.gameObject, rand - 0.01f);
+
+
 
 
         tempRigidbody = clone.GetComponent<Rigidbody>();
@@ -71,9 +89,8 @@ public class cannonBallFire : MonoBehaviour
 
 
             // This Invoke is invoking the fire function every rand time
-        Invoke("fire", rand);
-
-
+       Invoke("fire", rand);
+       
             // This is randomizing the time between shots
         rand = Random.Range(1f, 10f);
         print("Rand = " + rand);
@@ -84,12 +101,12 @@ public class cannonBallFire : MonoBehaviour
         Vertical = Random.Range(200f, 225f);
         print("Vertacle = " + Vertical);
             // This is Randomizing the left/right "angle"
-        Right = Random.Range(-20f, 20f);
+        Right = Random.Range(-50f, 50f);
         print("Right Random = " + Right);
 
 
             // Adding force to the RigidBody of the object
-        tempRigidbody.AddForce(transform.forward * Speed1);    // Foward
+        tempRigidbody.AddForce(transform.forward * Speed1);    // Forward
         tempRigidbody.AddForce(transform.up * Vertical);       // Up
         tempRigidbody.AddForce(transform.right * Right);       // Left/Right
 
