@@ -67,6 +67,13 @@ public class cannonBallFire : MonoBehaviour
             Destroy(clone.gameObject, 0f);
             // Destroy(collision.gameObject);
         }
+
+        if (collision.gameObject.tag == "Player")
+        {
+            Destroy(gameObject, 0f);
+        }
+
+
     }
 
 
@@ -93,16 +100,16 @@ public class cannonBallFire : MonoBehaviour
        
             // This is randomizing the time between shots
         rand = Random.Range(1f, 10f);
-        print("Rand = " + rand);
+       // print("Rand = " + rand);
             // This is Randomizing the foward speed
         Speed1 = Random.Range(120f, 250f);
-        print("Speed1 = " + Speed1);
+       // print("Speed1 = " + Speed1);
             // This is Randomizing the Vertical velocity
         Vertical = Random.Range(200f, 225f);
-        print("Vertacle = " + Vertical);
+       // print("Vertacle = " + Vertical);
             // This is Randomizing the left/right "angle"
         Right = Random.Range(-50f, 50f);
-        print("Right Random = " + Right);
+       // print("Right Random = " + Right);
 
 
             // Adding force to the RigidBody of the object

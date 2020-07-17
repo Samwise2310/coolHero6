@@ -92,16 +92,16 @@ public class bomb : MonoBehaviour
 
         // This is randomizing the time between shots
         rand = Random.Range(4f, 15f);
-        print("Rand = " + rand);
+       // print("Rand = " + rand);
         // This is Randomizing the foward speed
         Force = Random.Range(120f, 250f);
-        print("Speed1 = " + Force);
+       // print("Speed1 = " + Force);
         // This is Randomizing the Vertical velocity
         Vertical = Random.Range(200f, 225f);
-        print("Vertacle = " + Vertical);
+       // print("Vertacle = " + Vertical);
         // This is Randomizing the left/right "angle"
         Right = Random.Range(-50f, 50f);
-        print("Right Random = " + Right);
+       // print("Right Random = " + Right);
 
 
         // Adding force to the RigidBody of the object
