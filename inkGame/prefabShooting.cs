@@ -7,21 +7,21 @@ public class prefabShooting : MonoBehaviour
 {
 
     // Setting up Variables
-    // This will be the bullet object. (Not 100% sure if this is right 
+        // This will be the bullet object. (Not 100% sure if this is right 
     public GameObject theBullet;
-    // This is the speed of the "bullet"
+        // This is the speed of the "bullet"
     public float Speed = 20f;
-    // This is the positino of the Character that is shooting
+        // This is the positino of the Character that is shooting
     public GameObject characterPos;
-    // This is the position of the target
+        // This is the position of the target
     public Transform targetPos; // NOT USED YET
-                                // I do not know if I will need to get the Rigidbody
+        // I do not know if I will need to get the Rigidbody
     public Rigidbody rb;
-    // This Vector 3 variable will hold the mouse position
+        // This Vector 3 variable will hold the mouse position
     private Vector3 worldPosition;
-    // Mouse position on mouse click
+        // Mouse position on mouse click
     private Vector3 mouseClickPos;
-    // Creating variable "toTransform"
+        // Creating variable "toTransform"
     private Vector3 toTransform;
 
 
@@ -31,9 +31,9 @@ public class prefabShooting : MonoBehaviour
     public float damage = 10f;
 
     public float range = 100f;
+  
 
-
-
+  
 
 
 
@@ -49,7 +49,7 @@ public class prefabShooting : MonoBehaviour
 
 
         rb = GetComponent<Rigidbody>();
-
+        
 
 
     } // End of Void Start
@@ -58,12 +58,12 @@ public class prefabShooting : MonoBehaviour
 
 
 
-    // This update is called every frame
-    // I think I will want a FixedUpdate() here but I am not sure yet.
-    void Update()
+// This update is called every frame
+// I think I will want a FixedUpdate() here but I am not sure yet.
+void Update()
     {
 
-
+     
 
 
         /* 
@@ -74,7 +74,7 @@ public class prefabShooting : MonoBehaviour
 
         toTransform = characterPos.transform.position;
 
-
+        
 
         /*
          * This section of code will handle the Mouse Position
@@ -217,7 +217,7 @@ public class prefabShooting : MonoBehaviour
     {
 
         RaycastHit hit;
-        if (Physics.Raycast(characterPos.transform.position, mouseClickPos, out hit, range)) ;
+        if (Physics.Raycast(characterPos.transform.position, mouseClickPos, out hit, range));
         {
             Debug.Log(hit.transform.name);
 
