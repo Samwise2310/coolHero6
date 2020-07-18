@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class timer_jokeBook : player_jokeBook
+
+public class timer_jokeBook : MonoBehaviour //player_jokeBook
 {
+    /*
     // Declaring Variables
-        // This is what write the text on the screen
+    // This is what write the text on the screen
     public Text timerText;
-        // This is how long the entire game will last
+    // This is how long the entire game will last
     public float startTime;
 
-  
+
 
     // Start is called before the first frame update
     void Start()
@@ -36,10 +38,11 @@ public class timer_jokeBook : player_jokeBook
         {
             checkingHealth();
         }
-       
+
     }
 
     // checkingHealth() is called after time expires
+    /*
     void checkingHealth()
     {
 
@@ -53,8 +56,8 @@ public class timer_jokeBook : player_jokeBook
         }
         
     }
-
-
+    */
+    
 
 
 
