@@ -5,18 +5,20 @@ using UnityEngine;
 public class player_jokeBook : MonoBehaviour
 {
 
-
     // Declaring Variables
         // Max Health
     public int maxHealth = 100;
         // Current Health
-    public int currentHealth;
+    public int currentHealth = 55;
 
 
         // Holding the public value for damageFromTomato
     public int damageFromTomato = 20;
         // Holding the public value for damageFromBomb
     public int damageFromBomb = 20;
+
+
+
 
 
 
@@ -38,9 +40,6 @@ public class player_jokeBook : MonoBehaviour
     void Update()
     {
 
-
-        currentHealth = currentHealth;
-
         /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -49,6 +48,7 @@ public class player_jokeBook : MonoBehaviour
         */
         
     }
+
 
 
     void TakeDamage(int damage)

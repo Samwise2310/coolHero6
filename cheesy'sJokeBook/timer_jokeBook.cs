@@ -5,28 +5,26 @@ using UnityEngine.UI;
 
 public class timer_jokeBook : player_jokeBook
 {
-
+    // Declaring Variables
+        // This is what write the text on the screen
     public Text timerText;
-
+        // This is how long the entire game will last
     public float startTime;
 
-    
-
+  
 
     // Start is called before the first frame update
     void Start()
     {
-        // startTime = 29;
-        
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-
-        
-            float t = startTime - Time.time;
+        float t = startTime - Time.time;
         if (t >= 0)
         {
             string minutes = ((int)t / 60).ToString();
@@ -41,6 +39,7 @@ public class timer_jokeBook : player_jokeBook
        
     }
 
+    // checkingHealth() is called after time expires
     void checkingHealth()
     {
 
