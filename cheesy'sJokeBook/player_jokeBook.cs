@@ -38,11 +38,15 @@ public class player_jokeBook : MonoBehaviour
     void Update()
     {
 
+
+        currentHealth = currentHealth;
+
+        /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
             TakeDamage(20);
         }
-
+        */
         
     }
 
