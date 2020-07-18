@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class player_jokeBook : MonoBehaviour
 {
@@ -142,10 +143,12 @@ public class player_jokeBook : MonoBehaviour
         if (currentHealth >= 50)
         {
             print("Health is greater than 50: Health = " + currentHealth);
+            SceneManager.LoadScene("cheesyJokeBook_winState");
         }
         else
         {
             print("Health is lower than 50, You SUCK: Health = " + currentHealth);
+            SceneManager.LoadScene("cheesyJokeBook_looseState");
         }
 
     }
