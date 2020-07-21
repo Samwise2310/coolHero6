@@ -7,17 +7,24 @@ using UnityEngine.SceneManagement;
 public class playerMovement : MonoBehaviour
 {
 
+
+    // Declaring Variables
     public CharacterController2D controller;
     public Animator animator;
 
 
 
-    float horizontalMove = 0f;
+    float horizontalMove = 1f;
 
     public float runSpeed = 40f;
 
     bool jump = false;
     bool crouch = false;
+
+
+        // Vertical Move (Creates the illusion she is moving further away from the camera
+    float vertical = 0f;
+
 
 
     // Creating Rigid Body ref for scene switch
@@ -66,6 +73,21 @@ public class playerMovement : MonoBehaviour
         }
 
 
+        //// Making Katarina Move closer and further from the camera
+        //if (Input.GetButtonDown("Vertical"))
+        //{
+        //    verticalMove();
+        //    Debug.Log("W or S Pressed");
+        //}
+
+        //void verticalMove()
+        //{
+        //    vertical = Input.GetAxisRaw("Vertical") * runSpeed;
+        //}
+
+
+
+
 
     }
 
@@ -88,6 +110,9 @@ public class playerMovement : MonoBehaviour
         // Move our character
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
+
+
+        controller.Move(vertical * Time.fixedDeltaTime, crouch, jump);
 
         //rb.velocity = new Vector2(horizontalMove, rb.velocity.y);
 
