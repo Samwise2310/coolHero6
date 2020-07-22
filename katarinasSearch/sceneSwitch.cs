@@ -18,6 +18,7 @@ public class sceneSwitch : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Application.LoadLevel(levelToLoad);
+        //    Debug.Log("HIT");
         }
     }
 }
