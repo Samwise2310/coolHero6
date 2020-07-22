@@ -13,6 +13,9 @@ public class positionRendererSorter : MonoBehaviour
     public int sortingOrderBase = 5000;
         // Declaring offset
     public int offset = 0;
+        // Declaring a bool to run the script only once on certain objects
+    public bool runOnlyOnce = false;
+
 
 
 
@@ -26,6 +29,10 @@ public class positionRendererSorter : MonoBehaviour
     private void LateUpdate()
     {
         myRenderer.sortingOrder = (int)(sortingOrderBase - transform.position.y - offset);
+        if (runOnlyOnce)
+        {
+            Destroy(this);
+        }
     }
 
 
