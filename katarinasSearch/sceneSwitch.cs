@@ -5,12 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class sceneSwitch : MonoBehaviour
 {
+
+    // Declaring Variabals
+        // levelToLoad holds the level you are going too
     public string levelToLoad;
+        
 
-    void Start()
-    {
-
-    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
