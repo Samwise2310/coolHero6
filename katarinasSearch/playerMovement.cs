@@ -103,6 +103,19 @@ public class playerMovement : MonoBehaviour
     }
 
 
+    public void arrowShot()
+    {
+        animator.SetBool("arrowShot", true);
+        Invoke("afterArrowShot", .5f);
+    }
+
+    public void afterArrowShot()
+    {
+        animator.SetBool("arrowShot", false);
+    }
+
+
+
     // Fixed update only updates a certain number of times per second and not every frame like normal Update()
     void FixedUpdate ()
     {
