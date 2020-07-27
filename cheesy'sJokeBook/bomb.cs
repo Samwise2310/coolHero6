@@ -112,6 +112,22 @@ public class bomb : MonoBehaviour
 
     }
 
+
+    void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.gameObject.tag == "Stage")
+        {
+            Destroy(gameObject, 0f);
+        }
+        else if (collision.gameObject.tag == "Player")
+        {
+            Destroy(gameObject, 0f);
+        }
+
+    }
+
+
     void Explode()
     {
         Debug.Log("BOOM!");

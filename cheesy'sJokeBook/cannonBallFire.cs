@@ -10,6 +10,8 @@ public class cannonBallFire : MonoBehaviour
     //Declaring Variables
         // This will let me pass the cannonBall object into the scene
     public GameObject cannonBall;
+        // Transform of cannonBall (tomato)
+    public Transform cannonBallTransform;
         // Speed of the cannonBall
     public float Speed = 20f;
         // Speed1 is the Random speed that the ball is launched at
@@ -35,6 +37,10 @@ public class cannonBallFire : MonoBehaviour
 
     public GameObject clone;
 
+
+    public GameObject tomatoSplat;
+    public Transform tomatoSplatTransform;
+    public GameObject tempTomato;
 
 
 
@@ -63,9 +69,18 @@ public class cannonBallFire : MonoBehaviour
 
         if (collision.gameObject.tag == "Stage")
         {
-           // print("Collided with the Stage - This is my print");
-            Destroy(clone.gameObject, 0f);
+            tempTomato = Instantiate(tomatoSplat);
+
+            tomatoSplatTransform.position = cannonBallTransform.position;
+
+
+          //  tempTomato = clone.GetComponent<GameObject>();
+           Destroy(tempTomato, 3f);
+
+            // print("Collided with the Stage - This is my print");
+            Destroy(gameObject, 0f);
             // Destroy(collision.gameObject);
+
         }
 
         if (collision.gameObject.tag == "Player")

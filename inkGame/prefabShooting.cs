@@ -23,7 +23,10 @@ public class prefabShooting : MonoBehaviour
     private Vector3 mouseClickPos;
         // Creating variable "toTransform"
     private Vector3 toTransform;
-
+        // Creating a variabal to hold the muzzle flash
+    public ParticleSystem muzzleFlash;
+        // Ink Impact Effect
+    public GameObject impactEffect;
 
 
 
@@ -103,7 +106,7 @@ void Update()
         if (Input.GetMouseButtonDown(0))
         {
             mouseClickPos = worldPosition;
-            print("Mouse Clicked at Position " + mouseClickPos); // This is just printing on the console what the position of my mouse click is for a checker to see if it is working correctly
+            // Debug.Log("Mouse Clicked at Position " + mouseClickPos); // This is just printing on the console what the position of my mouse click is for a checker to see if it is working correctly
         }
 
 
@@ -216,16 +219,22 @@ void Update()
     public void Shoot()
     {
 
+        muzzleFlash.Play();
+
         RaycastHit hit;
         if (Physics.Raycast(characterPos.transform.position, mouseClickPos, out hit, range));
         {
-            Debug.Log(hit.transform.name);
+            Debug.Log("Player hit: " + hit.transform.name);
 
             Target target = hit.transform.GetComponent<Target>();
             if (target != null)
             {
                 target.TakeDamage(damage);
             }
+
+
+            Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+
 
         }
 

@@ -27,6 +27,9 @@ public class player_jokeBook : MonoBehaviour
         // Setting the variable t to hold time
     float t;
 
+        // Testing something
+    public float currentHealth2 = 100;
+
 
 
     public healthBar healthBar;
@@ -47,6 +50,10 @@ public class player_jokeBook : MonoBehaviour
     void Update()
     {
 
+        Debug.Log("Current Health is " + currentHealth);
+
+        Debug.Log("Current Health 2 is: " + currentHealth2);
+
         // print("Time = " + t);
 
         float t2 = startTime - Time.time;
@@ -60,7 +67,7 @@ public class player_jokeBook : MonoBehaviour
 
             //timerText.text = minutes + ":" + seconds;
         }
-        if (t2 <= -30f)
+        else if (t2 < 0f)
         {
             elseTime();
             //print("I am in the t else statment");
@@ -96,12 +103,12 @@ public class player_jokeBook : MonoBehaviour
 
 
 
-    void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
+    //void TakeDamage(int damage)
+    //{
+    //    currentHealth -= damage;
 
-        healthBar.SetHealth(currentHealth);
-    }
+    //    healthBar.SetHealth(currentHealth);
+    //}
 
 
 
@@ -113,6 +120,7 @@ public class player_jokeBook : MonoBehaviour
         // Collision with Tomato
         if (collision.gameObject.tag == "tomato")
         {
+            currentHealth2 -= damageFromTomato;
 
             currentHealth -= damageFromTomato;
 
@@ -127,6 +135,9 @@ public class player_jokeBook : MonoBehaviour
         // Collision with Bomb
         if (collision.gameObject.tag == "Bomb")
         {
+
+            currentHealth2 += damageFromBomb;
+
             currentHealth += damageFromBomb;
 
             healthBar.SetHealth(currentHealth);
@@ -139,6 +150,8 @@ public class player_jokeBook : MonoBehaviour
     void checkingHealth()
     {
         print("Your current Health is " + currentHealth);
+
+        Debug.Log("Your currentHealth2 is: " + currentHealth2);
 
         if (currentHealth >= 50)
         {

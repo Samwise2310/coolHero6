@@ -1,13 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Security.AccessControl;
-using System.Security.Cryptography;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class movePlayer_jokeBook : MonoBehaviour
 {
+
+
+    // Declaring Variabals
+        // Animator
+    public Animator animator;
+        // Time before Cheesy Start Walking over
+    private float cheesyStartWalkingTimer = 0.42f;
+        // Time before Cheesy Stop Walking over
+    private float cheesyStopWalkingTimer = 0.42f;
+
+
+
 
    
         float speed = 5;
@@ -18,11 +27,21 @@ public class movePlayer_jokeBook : MonoBehaviour
             Vector3 moveDir = Vector3.zero;
             moveDir.x = Input.GetAxis("Horizontal");
             moveDir.z = Input.GetAxis("Vertical");
-
+            
             transform.position += moveDir * speed * Time.deltaTime;
 
 
 
+
+            cheesyAnimation();
+            
+            
+            
+            
+            
+            
+            
+            
             // Puase game
             if (Input.GetButtonDown("Pause"))
             {
@@ -31,9 +50,55 @@ public class movePlayer_jokeBook : MonoBehaviour
 
 
         }
-    
 
- 
+
+
+    /*
+     * Cheesy Animations
+     */
+    void cheesyAnimation()
+    {
+
+        if (Input.GetButton("Horizontal"))
+        {
+            // Debug.Log("Set cheesyWalking to True");
+            animator.SetBool("cheesyWalking", true);
+        }
+        else if (Input.GetButton("Vertical"))
+        {
+            animator.SetBool("cheesyWalking", true);
+        }
+        else
+        {
+            // Debug.Log("Set cheesyWalking to False");
+            animator.SetBool("cheesyWalking", false);
+        }
+
+
+
+        /*
+        if (Input.GetButton("Horizontal"))
+        {
+            Debug.Log("cheesyStartWalking  = true");
+            animator.SetBool("cheesyStartWalking", true);
+
+            if (cheesyStartWalkingTimer < 0)
+            {
+                Debug.Log("cheesyWalking = true");
+                animator.SetBool("cheesyWalking", true);
+            }
+        }
+        else if (Input.GetButton("Vertical"))
+        {
+            animator.SetBool("cheesyStartWalking", true);
+        }
+        else
+        {
+            Debug.Log("cheesyStartWalking = false");
+            animator.SetBool("cheesyStartWalking", false);
+        }
+        */
+    }
 
 
 

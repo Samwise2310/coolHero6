@@ -22,12 +22,26 @@ public class enemyAI : MonoBehaviour
     Seeker seeker;
     Rigidbody rb;
 
+        // This will hold the Enemys GameObject so I can get his rotation etc. 
+    public GameObject EnemyGO;
+
 
     //Declaring Variabals for the Shoot Functions
         // Rnage will tell the Raycast how far to go
     float range = 100f;
         // Damage holds how much damage will be dealt to the enemy
     public float damage = 20f;
+        // Getting gameObject enemyShootPoint which is the tip of the pen
+    public GameObject enemyShootPoint;
+
+    // Variablas for animation
+        // Refferencing the animator
+    public Animator animator;
+        // enemyAnimationTime
+    float enemyAnimationTime = 3f;
+        // enemyAnimationTimeReset
+    float enemyAnimationTimeReset = 1f;
+
 
 
 
@@ -40,17 +54,36 @@ public class enemyAI : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         // the Invoke Repeating updates the path, the last option is how often you want it to update
-        InvokeRepeating("UpdatePath", 0f, .5f);
+        InvokeRepeating("UpdatePath", 0f, 3f);
 
         InvokeRepeating("Shoot", 10f, 0.5f); // Maybe change the time between invokes to be random
-        
+
+        // InvokeRepeating("enemyAnimation", 0f, 3f);
+
     }
+
+    // Update is called once every frame
+    void Update()
+    {
+        lookAt();
+
+        enemyAnimation();
+    }
+
+
+
 
     // This updates the path that the Enemy Character is taking. Its update rate is set by the Invoke Repeating in the Start() function
     void UpdatePath()
     {
         if (seeker.IsDone())
         seeker.StartPath(rb.position, target.position, OnPathComplete);
+
+
+
+
+            // Checking to make sure that the enemyShootPoint location updates like it should
+        // Debug.Log("enemyShootPoint location is: " + enemyShootPoint.transform.position);
 
             // Seeing if getting the players position is this easy. UPDATE: It was
         // Debug.Log("This is the target.position " + target.position);
@@ -87,6 +120,7 @@ public class enemyAI : MonoBehaviour
         {
             reachedEndOfPath = false;
         }
+
 
 
         Vector3 direction = ((Vector3)path.vectorPath[currentWaypoint] - rb.position).normalized;
@@ -142,13 +176,17 @@ public class enemyAI : MonoBehaviour
      *      *** Tested & Works ***
      *  You can get the players position by typing: target.position
      *  You can get the Enemys position by typing: rb.position
+     *  
+     *  Changed the enemys fire position to enemyShootPoint.transform.position
+     *      I made a small sphere collider at the tip of the enemys pen to have
+     *      as a reference for where to shoot from.
      */
-    public void Shoot()
+    void Shoot()
     {
-        Debug.Log("Shoot() function has been called");
+        // Debug.Log("Shoot() function has been called");
 
         RaycastHit hit;
-        if (Physics.Raycast(rb.transform.position, target.position, out hit, range))
+        if (Physics.Raycast(enemyShootPoint.transform.position, target.position, out hit, range))
         {
             Debug.Log("Enemy Hit: " + hit.transform.name);
 
@@ -162,6 +200,71 @@ public class enemyAI : MonoBehaviour
 
         }
     }
+
+
+
+
+    /*
+     * This lookAt() function will turn the Enemy to always be facing the player
+     */
+    void lookAt()
+    {
+        Vector3 direction = target.position - transform.position;
+        Quaternion rotation = Quaternion.LookRotation(direction);
+        transform.rotation = rotation;
+    }
+
+
+
+    /*
+     * enemyAnimation() is where I will call all of the animations and
+     * set them true/false accordingly
+     * 
+     */
+    void enemyAnimation()
+    {
+        
+        if (enemyAnimationTime >= 0f)
+        {
+            enemyAnimationTime -= Time.deltaTime;
+                    //Debug.Log("EnemyAnimationTime = " + enemyAnimationTime);
+            animator.SetBool("isRunning", true);
+        }
+        else if (enemyAnimationTime < 0f)
+        {
+                    //Debug.Log("Reached the else if statement in enemyAnimation()");
+            animator.SetBool("isRunning", false);
+
+            
+
+            if (enemyAnimationTimeReset >= 0f)
+            {
+                        //Debug.Log("Made it to enemyAnimationTimeReset if - ");
+                enemyAnimationTimeReset -= Time.deltaTime;
+                        //Debug.Log("enemyAnimationTimeReset is: " + enemyAnimationTimeReset);
+                animator.SetBool("isRunning_isShooting", true);
+            }
+            else if (enemyAnimationTimeReset < 0f)
+            {
+                        //Debug.Log("Made it to the enemyAnimationTimeReset else if - ");
+                animator.SetBool("isRunning_isShooting", false);
+
+                enemyAnimationTime = 1;
+
+                enemyAnimationTimeReset = 1f;
+            }
+
+
+
+        }
+
+        
+
+
+
+
+    }
+
 
 
 
