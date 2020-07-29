@@ -48,7 +48,7 @@ public class bomb : MonoBehaviour
 
         // Randomizing the time between the next shot
         rand = Random.Range(1f, 10f);
-        print("Rand = " + rand);
+        // print("Rand = " + rand);
 
         // Setting Countdown = to Delay
         countdown = delay;
@@ -130,7 +130,7 @@ public class bomb : MonoBehaviour
 
     void Explode()
     {
-        Debug.Log("BOOM!");
+        // Debug.Log("BOOM!");
 
 
         // Show Effect

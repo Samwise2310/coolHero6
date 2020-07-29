@@ -17,14 +17,19 @@ public class playerDamage : MonoBehaviour
 
     // Declaring Variabals
         // Health holds the players max health
-    public float health = 100f;
+    public int health = 100;
 
 
+    public healthBar_penmanship healthBar;
 
-    public void TakeDamage(float amount)
+
+    public void TakeDamage(int amount)
     {
         health -= amount;
-        if (health <= 0f)
+
+        healthBar.SetHealth(health);
+
+        if (health <= 0)
         {
             Die();
         }

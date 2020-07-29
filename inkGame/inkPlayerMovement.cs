@@ -16,8 +16,26 @@ public class inkPlayerMovement : MonoBehaviour
         // Enemy transform is so I can always be looking at the enemy
     public Transform enemyTransform;
 
+    public string pauseButtonSceneToLoad;
+
+        // Spot Light
+    public GameObject spotLight;
+        // Candle Lights
+    public GameObject candleLights;
 
 
+
+    void Start()
+    {
+        // candleLights.SetActive(false);
+
+        Invoke("lights", 15f);
+
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+    }
 
 
 
@@ -45,9 +63,14 @@ public class inkPlayerMovement : MonoBehaviour
         // Puase game
         if (Input.GetButtonDown("Pause"))
         {
-            SceneManager.LoadScene("LibraryWhitebox");
+            SceneManager.LoadScene("mainMenu");
         }
 
+        // Fail-Safe library return
+        if (Input.GetKeyDown("m"))
+        {
+            SceneManager.LoadScene("LibraryWhitebox");
+        }
     }
 
 
@@ -122,6 +145,20 @@ public class inkPlayerMovement : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(direction);
         transform.rotation = rotation;
     }
+
+
+
+    void lights()
+    {
+        spotLight.SetActive(false);
+
+        candleLights.SetActive(true);
+    }
+
+
+
+
+
 
 
 

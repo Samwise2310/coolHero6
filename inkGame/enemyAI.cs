@@ -30,7 +30,7 @@ public class enemyAI : MonoBehaviour
         // Rnage will tell the Raycast how far to go
     float range = 100f;
         // Damage holds how much damage will be dealt to the enemy
-    public float damage = 20f;
+    public int damage = 20;
         // Getting gameObject enemyShootPoint which is the tip of the pen
     public GameObject enemyShootPoint;
 
@@ -41,6 +41,10 @@ public class enemyAI : MonoBehaviour
     float enemyAnimationTime = 3f;
         // enemyAnimationTimeReset
     float enemyAnimationTimeReset = 1f;
+        // muzzleFlash plug in
+    public ParticleSystem muzzleFlash;
+        // animation delay for camera movement before enemy starts firing
+    float animationDelay = 20f;
 
 
 
@@ -54,11 +58,13 @@ public class enemyAI : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         // the Invoke Repeating updates the path, the last option is how often you want it to update
-        InvokeRepeating("UpdatePath", 0f, 3f);
+        InvokeRepeating("UpdatePath", 20f, 3f);
 
-        InvokeRepeating("Shoot", 10f, 0.5f); // Maybe change the time between invokes to be random
+        InvokeRepeating("Shoot", 25f, 0.5f); // Maybe change the time between invokes to be random
 
         // InvokeRepeating("enemyAnimation", 0f, 3f);
+
+        Invoke("showsHint", 8f);
 
     }
 
@@ -185,6 +191,8 @@ public class enemyAI : MonoBehaviour
     {
         // Debug.Log("Shoot() function has been called");
 
+        muzzleFlash.Play();
+
         RaycastHit hit;
         if (Physics.Raycast(enemyShootPoint.transform.position, target.position, out hit, range))
         {
@@ -223,46 +231,63 @@ public class enemyAI : MonoBehaviour
      */
     void enemyAnimation()
     {
-        
-        if (enemyAnimationTime >= 0f)
+
+
+        if (animationDelay >= 0)
         {
-            enemyAnimationTime -= Time.deltaTime;
+            animationDelay -= Time.deltaTime;
+
+        }
+        else if (animationDelay < 0)
+        {
+
+            if (enemyAnimationTime >= 0f)
+            {
+                enemyAnimationTime -= Time.deltaTime;
                     //Debug.Log("EnemyAnimationTime = " + enemyAnimationTime);
-            animator.SetBool("isRunning", true);
-        }
-        else if (enemyAnimationTime < 0f)
-        {
+                animator.SetBool("isRunning", true);
+            }
+            else if (enemyAnimationTime < 0f)
+            {
                     //Debug.Log("Reached the else if statement in enemyAnimation()");
-            animator.SetBool("isRunning", false);
+                animator.SetBool("isRunning", false);
 
-            
 
-            if (enemyAnimationTimeReset >= 0f)
-            {
+
+                if (enemyAnimationTimeReset >= 0f)
+                {
                         //Debug.Log("Made it to enemyAnimationTimeReset if - ");
-                enemyAnimationTimeReset -= Time.deltaTime;
+                    enemyAnimationTimeReset -= Time.deltaTime;
                         //Debug.Log("enemyAnimationTimeReset is: " + enemyAnimationTimeReset);
-                animator.SetBool("isRunning_isShooting", true);
+                    animator.SetBool("isRunning_isShooting", true);
+                }
+                else if (enemyAnimationTimeReset < 0f)
+                {
+                    //Debug.Log("Made it to the enemyAnimationTimeReset else if - ");
+                    animator.SetBool("isRunning_isShooting", false);
+
+                    enemyAnimationTime = 1;
+
+                    enemyAnimationTimeReset = 1f;
+                }
+
+
+
             }
-            else if (enemyAnimationTimeReset < 0f)
-            {
-                        //Debug.Log("Made it to the enemyAnimationTimeReset else if - ");
-                animator.SetBool("isRunning_isShooting", false);
-
-                enemyAnimationTime = 1;
-
-                enemyAnimationTimeReset = 1f;
-            }
-
-
-
         }
 
-        
+    }
 
+    void showsHint()
+    {
+        animator.SetBool("showsHint", true);
 
+        Invoke("showsHintOff", 5f);
+    }
 
-
+    void showsHintOff()
+    {
+        animator.SetBool("showsHint", false);
     }
 
 

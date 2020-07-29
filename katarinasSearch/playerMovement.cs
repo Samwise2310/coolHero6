@@ -69,8 +69,15 @@ public class playerMovement : MonoBehaviour
         // Puase game
         if (Input.GetButtonDown("Pause"))
         {
+            SceneManager.LoadScene("mainMenu");
+        }
+
+        // Fail-Safe library return
+        if (Input.GetKeyDown("m"))
+        {
             SceneManager.LoadScene("LibraryWhitebox");
         }
+
 
 
         //// Making Katarina Move closer and further from the camera
@@ -112,6 +119,16 @@ public class playerMovement : MonoBehaviour
     public void afterArrowShot()
     {
         animator.SetBool("arrowShot", false);
+    }
+
+    public void rockBowShot()
+    {
+        animator.SetBool("rockBowShot", true);
+        Invoke("rockBowShotOff", .5f);
+    }
+    private void rockBowShotOff()
+    {
+        animator.SetBool("rockBowShot", false);
     }
 
 

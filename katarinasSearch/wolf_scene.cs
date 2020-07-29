@@ -22,6 +22,16 @@ public class wolf_scene : MonoBehaviour
     public GameObject buttonActive;
 
 
+    public GameObject deadWolf;
+
+
+    void Start()
+    {
+        deadWolf.SetActive(false);
+
+        buttonActive.SetActive(false);
+    }
+
 
 
 
@@ -57,21 +67,26 @@ public class wolf_scene : MonoBehaviour
                 }
                 else if (blackScreenTime < 0)
                 {
-                    Application.LoadLevel("katarinasSearch_looseState");
+                    Application.LoadLevel("katarinasSearch_deathState");
                 }
             }
         }
-
-
-
     }
+
+
 
 
     public void wolfShot()
     {
-        Destroy(gameObject);
+        Invoke("destroyWolf", 1f);
     }
 
+    void destroyWolf()
+    {
+        deadWolf.SetActive(true);
+
+        Destroy(gameObject);
+    }
 
 
 

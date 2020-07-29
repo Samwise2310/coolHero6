@@ -31,7 +31,7 @@ public class prefabShooting : MonoBehaviour
 
 
 
-    public float damage = 10f;
+    public int damage = 10;
 
     public float range = 100f;
   
@@ -233,7 +233,7 @@ void Update()
             }
 
 
-            Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            // Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
 
 
         }

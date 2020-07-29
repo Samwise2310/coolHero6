@@ -15,12 +15,17 @@ public class Target : MonoBehaviour
      */
 
 
+    public int health = 100;
 
-    public float health = 100f;
+    public healthBar_penmanship heathBar;
 
-    public void TakeDamage (float amount)
+
+    public void TakeDamage (int amount)
     {
         health -= amount;
+
+        heathBar.SetHealth(health);
+
         if (health <= 0f)
         {
             Die();
